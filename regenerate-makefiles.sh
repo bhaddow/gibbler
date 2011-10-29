@@ -40,21 +40,15 @@ then
     fi
 fi
 
-touch ltmain.sh
 
 echo "Calling $ACLOCAL..."
 $ACLOCAL -I m4 || die "aclocal failed"
 echo "Calling $AUTOCONF..."
 $AUTOCONF  || die "autoconf failed"
+rm ltmain.sh 2>/dev/null
+touch ltmain.sh
 echo "Calling $AUTOMAKE..."
 $AUTOMAKE || die "automake failed"
 echo "Calling $LIBTOOLIZE"
 $LIBTOOLIZE || die "libtoolize failed"
-
-
-echo
-echo "You should now be able to configure and build:"
-echo "   ./configure [--with-srilm=/path/to/srilm] [--with-irstlm=/path/to/irstlm] [--with-randlm=/path/to/randlm] [--without-kenlm] [--with-xmlrpc-c=/path/to/xmlrpc-c-config]"
-echo "   make -j 4"
-echo
 

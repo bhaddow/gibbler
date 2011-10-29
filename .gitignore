@@ -21,6 +21,9 @@ misc/Makefile.in
 misc/processLexicalTable
 misc/processPhraseTable
 misc/queryLexicalTable
+m4/lt*
+m4/libtool.m4
+libtool
 moses-cmd/src/.deps
 moses-cmd/src/Makefile
 moses-cmd/src/Makefile.in
