@@ -18,6 +18,13 @@ BOOST_REQUIRE([1.36.0])
 BOOST_PROGRAM_OPTIONS
 BOOST_THREADS
 
+AC_ARG_WITH(moses,
+            [AC_HELP_STRING([--with-moses=PATH], [path to Moses toolkit (sparse feature version)])],
+            [with_moses=$withval],
+            [AC_MSG_ERROR([Uses the --with-moses flag to provide the moses location])]
+           )
+
+
 ac_have_mpi=no
 AC_ARG_WITH(mpi,
             AC_HELP_STRING([--with-mpi],
@@ -38,6 +45,19 @@ fi
 
 AM_CONDITIONAL([WITH_THREADS],true)
 
+
+if test "x$with_moses" != 'xno'
+then
+  SAVE_CPPFLAGS="$CPPFLAGS"
+  CPPFLAGS="$CPPFLAGS -I${with_moses}/moses/src -I${with_moses}/kenlm"
+
+  AC_CHECK_HEADER(StaticData.h,
+                  [AC_MSG_NOTICE([Found Moses])],
+                  [AC_MSG_ERROR([Cannot find Moses!])])
+
+  MOSES_LDFLAGS="-L\$(with_moses)/kenlm -L$\$(with_moses)/moses/src"
+  MOSES_LIBS="-lmoses -lkenlm"
+fi
 
 
 

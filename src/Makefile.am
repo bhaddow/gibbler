@@ -61,19 +61,15 @@ unittest_SOURCES = \
 truncate_SOURCES = \
   Truncate.cpp
    
-AM_CPPFLAGS = -W -Wall -Wno-unused -ffor-scope -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -I$(top_srcdir)/moses/src $(BOOST_CPPFLAGS)
+AM_CPPFLAGS = -W -Wall -Wno-unused -ffor-scope -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES $(BOOST_CPPFLAGS)
 
 
-josiah_LDADD = -L$(top_srcdir)/josiah -ljosiah $(top_builddir)/moses/src/libmoses.la -L$(top_srcdir)/OnDiskPt/src -lOnDiskPt @KENLM_LDFLAGS@  $(BOOST_LDFLAGS)  $(BOOST_SERIALIZATION_LIBS) $(BOOST_PROGRAM_OPTIONS_LDFLAGS) $(BOOST_PROGRAM_OPTIONS_LIBS) $(BOOST_MPI_LIBS)
-josiah_DEPENDENCIES = $(top_srcdir)/moses/src/libmoses.la $(top_srcdir)/josiah/libjosiah.a 
+josiah_LDADD = -L$(top_srcdir)/josiah -ljosiah @MOSES_LDFLAGS@ @MOSES_LIBS@  $(BOOST_LDFLAGS)  $(BOOST_SERIALIZATION_LIBS) $(BOOST_PROGRAM_OPTIONS_LDFLAGS) $(BOOST_PROGRAM_OPTIONS_LIBS) $(BOOST_MPI_LIBS)
+josiah_DEPENDENCIES = $(top_srcdir)/josiah/libjosiah.a 
 
-samplerank_LDADD =  -L$(top_srcdir)/josiah -ljosiah $(top_builddir)/moses/src/libmoses.la -L$(top_srcdir)/OnDiskPt/src -lOnDiskPt @KENLM_LDFLAGS@   $(BOOST_LDFLAGS)  $(BOOST_SERIALIZATION_LIBS) $(BOOST_PROGRAM_OPTIONS_LDFLAGS) $(BOOST_PROGRAM_OPTIONS_LIBS) $(BOOST_MPI_LIBS)
-samplerank_DEPENDENCIES = $(top_srcdir)/moses/src/libmoses.la $(top_srcdir)/josiah/libjosiah.a 
+samplerank_LDADD =  -L$(top_srcdir)/josiah -ljosiah  @MOSES_LDFLAGS@ @MOSES_LIBS@ $(BOOST_LDFLAGS)  $(BOOST_SERIALIZATION_LIBS) $(BOOST_PROGRAM_OPTIONS_LDFLAGS) $(BOOST_PROGRAM_OPTIONS_LIBS) $(BOOST_MPI_LIBS)
+samplerank_DEPENDENCIES = $(top_srcdir)/josiah/libjosiah.a 
 
 unittest_CPPFLAGS = $(AM_CPPFLAGS) -DBOOST_TEST_DYN_LINK
-unittest_LDADD =  -L$(top_srcdir)/josiah -ljosiah $(top_builddir)/moses/src/libmoses.la -L$(top_srcdir)/OnDiskPt/src -lOnDiskPt @KENLM_LDFLAGS@   $(BOOST_LDFLAGS)  $(BOOST_SERIALIZATION_LIBS) $(BOOST_PROGRAM_OPTIONS_LDFLAGS) $(BOOST_PROGRAM_OPTIONS_LIBS) $(BOOST_MPI_LIBS) -lboost_unit_test_framework
-unittest_DEPENDENCIES = $(top_srcdir)/moses/src/libmoses.la $(top_srcdir)/josiah/libjosiah.a 
-
-truncate_LDADD = -L$(top_srcdir)/josiah -ljosiah $(top_builddir)/moses/src/libmoses.la -L$(top_srcdir)/OnDiskPt/src -lOnDiskPt @KENLM_LDFLAGS@    $(BOOST_LDFLAGS)  $(BOOST_SERIALIZATION_LIBS) $(BOOST_PROGRAM_OPTIONS_LDFLAGS) $(BOOST_PROGRAM_OPTIONS_LIBS)
-truncate_DEPENDENCIES = $(top_srcdir)/moses/src/libmoses.la $(top_srcdir)/josiah/libjosiah.a 
-
+unittest_LDADD =  -L$(top_srcdir)/josiah -ljosiah  @MOSES_LDFLAGS@ @MOSES_LIBS@ $(BOOST_LDFLAGS)  $(BOOST_SERIALIZATION_LIBS) $(BOOST_PROGRAM_OPTIONS_LDFLAGS) $(BOOST_PROGRAM_OPTIONS_LIBS) $(BOOST_MPI_LIBS) -lboost_unit_test_framework
+unittest_DEPENDENCIES = $(top_srcdir)/josiah/libjosiah.a 
